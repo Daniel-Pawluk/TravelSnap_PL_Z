@@ -1,29 +1,24 @@
 # TravelSnap
 
-**Branch:** `lesson-1`
+**Branch:** `lesson-2`
 
-## 🎯 Zadanie praktyczne: Lekcja 1 — Wstęp do React Native
+## 🎯 Zadanie praktyczne: Lekcja 2 — JSX, komponenty i propsy
 
 ### Zadanie podstawowe
 
-1. Utwórz projekt TravelSnap:
-   ```bash
-   npx create-expo-app TravelSnap
-   ```
-2. Zmodyfikuj plik `app/index.tsx`:
-   - Nazwa aplikacji: **TravelSnap**
-   - Podtytuł: **Twój dziennik podróży**
-   - **Twoje imię i nazwisko**
-3. Użyj komponentów `View` i `Text` z podstawowym stylowaniem (`StyleSheet.create`).
-4. Uruchom aplikację w **Expo Go** na telefonie.
+1. Stwórz komponent `TripCard` z następującymi propsami:
+   - `title: string`
+   - `destination: string`
+   - `date: string`
+   - `rating: number`
+2. Wyświetl 3–5 statycznych kart podróży na ekranie głównym wewnątrz `ScrollView`.
+3. Użyj interfejsów TypeScript do typowania propsów.
 
 ### Rozszerzenie ★
 
-**Dodaj komponent `Image` z ikoną podróży:**
-- Z URL-a lub pliku lokalnego (np. z folderu `assets`).
-
-**Dodaj przycisk `Pressable`:**
-- Po kliknięciu wyświetl `Alert` z wiadomością powitalną.
+**Stwórz komponent `RatingStars`:**
+- Na podstawie propsa `rating` (1–5) wyświetla odpowiednią liczbę gwiazdek (np. ★ i ☆).
+- Użyj go wewnątrz komponentu `TripCard`.
 
 ---
 
@@ -31,7 +26,7 @@
 
 Jeśli chcesz zobaczyć gotowe rozwiązanie tej lekcji:
 
-1. Sklonuj repozytorium i przejdź na branch `lesson-1`.
+1. Sklonuj repozytorium i przejdź na branch `lesson-2`.
 2. Zainstaluj zależności:
    ```bash
    npm install
