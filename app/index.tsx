@@ -2,6 +2,44 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import TripCard from "../components/TripCard";
 
 export default function HomeScreen() {
+  const trips = [
+    {
+      id: 1,
+      title: "Wycieczka 1",
+      destination: "Czechy",
+      date: "15.10.2024",
+      rating: 5,
+    },
+    {
+      id: 2,
+      title: "Wycieczka 2",
+      destination: "Czechy",
+      date: "15.10.2024",
+      rating: 3,
+    },
+    {
+      id: 3,
+      title: "Wycieczka 3",
+      destination: "Czechy",
+      date: "15.10.2024",
+      rating: 1,
+    },
+    {
+      id: 4,
+      title: "Wycieczka 4",
+      destination: "Czechy",
+      date: "15.10.2024",
+      rating: 1,
+    },
+    {
+      id: 5,
+      title: "Wycieczka 3",
+      destination: "Czechy",
+      date: "15.10.2024",
+      rating: 1,
+    },
+  ];
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>TravelSnap</Text>
@@ -9,30 +47,15 @@ export default function HomeScreen() {
       <Text style={styles.author}>Daniel Pawluk</Text>
 
       <ScrollView>
-        <TripCard
-          title="Wycieczka 1"
-          destination="Czechy"
-          date="15.10.2024"
-          rating={2}
-        />
-        <TripCard
-          title="Wycieczka 2"
-          destination="Niemcy"
-          date="07.03.2023"
-          rating={5}
-        />
-        <TripCard
-          title="Wycieczka 3"
-          destination="Warszawa"
-          date="10.12.2022"
-          rating={3}
-        />
-        <TripCard
-          title="Wycieczka 4"
-          destination="Londyn"
-          date="15.05.2021"
-          rating={4}
-        />
+        {trips.map((trip) => (
+          <TripCard
+            key={trip.id}
+            title={trip.title}
+            destination={trip.destination}
+            date={trip.date}
+            rating={trip.rating}
+          />
+        ))}
       </ScrollView>
     </View>
   );
