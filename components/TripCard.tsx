@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import RatingStars from "./RatingStars";
 
 interface TripCardProps {
@@ -6,6 +6,7 @@ interface TripCardProps {
   destination: string;
   date: string;
   rating: number;
+  onDel?: () => void;
 }
 
 export default function TripCard({
@@ -13,6 +14,7 @@ export default function TripCard({
   destination,
   date,
   rating,
+  onDel,
 }: TripCardProps) {
   return (
     <View style={styles.card}>
@@ -23,11 +25,30 @@ export default function TripCard({
         <Text style={styles.ratingText}>Ocena: {rating}/5</Text>
         <RatingStars rating={rating} />
       </View>
+      {onDel && (
+        <Pressable onPress={onDel} style={styles.addDel}>
+          <Text style={styles.addDelText}>Usun</Text>
+        </Pressable>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  addDel: {
+    backgroundColor: "#ff9292",
+    padding: 5,
+    width: 100,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 5,
+  },
+
+  addDelText: {
+    color: "red",
+    fontWeight: "bold",
+  },
+
   card: {
     backgroundColor: "#d3d3d3",
     padding: 15,
