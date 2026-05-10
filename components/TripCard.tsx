@@ -1,4 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Colors } from "../constants/Colors";
 import RatingStars from "./RatingStars";
 
 interface TripCardProps {
@@ -19,12 +20,15 @@ export default function TripCard({
   return (
     <View style={styles.card}>
       <Text style={styles.title}>{title}</Text>
+
       <Text style={styles.infoText}>Miejsce: {destination}</Text>
       <Text style={styles.infoText}>Data: {date}</Text>
+
       <View style={styles.rating}>
         <Text style={styles.ratingText}>Ocena: {rating}/5</Text>
         <RatingStars rating={rating} />
       </View>
+
       {onDel && (
         <Pressable onPress={onDel} style={styles.addDel}>
           <Text style={styles.addDelText}>Usun</Text>
@@ -37,41 +41,51 @@ export default function TripCard({
 const styles = StyleSheet.create({
   addDel: {
     backgroundColor: "#ff9292",
-    padding: 5,
+    padding: 8,
+    marginTop: 12,
     width: 100,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: 12,
   },
 
   addDelText: {
-    color: "red",
+    color: Colors.accent,
     fontWeight: "bold",
   },
 
   card: {
-    backgroundColor: "#d3d3d3",
+    backgroundColor: Colors.card,
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 16,
     marginVertical: 10,
+    width: "100%",
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   title: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 5,
+    color: Colors.textPrimary,
   },
   infoText: {
-    fontSize: 16,
+    fontSize: 13,
     marginBottom: 4,
-    color: "#000000ae",
+    color: Colors.textSecondary,
   },
   ratingText: {
-    fontSize: 16,
+    fontSize: 13,
     fontWeight: "600",
     marginTop: 10,
     marginRight: 10,
+    color: Colors.textSecondary,
   },
   rating: {
     flexDirection: "row",
+    alignItems: "center",
+    marginTop: 10,
   },
 });

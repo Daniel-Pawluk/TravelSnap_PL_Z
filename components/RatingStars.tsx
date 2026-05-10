@@ -1,4 +1,6 @@
-import { StyleSheet, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { StyleSheet, View } from "react-native";
+import { Colors } from "../constants/Colors";
 
 interface RatingStarsProps {
   rating: number;
@@ -7,21 +9,23 @@ interface RatingStarsProps {
 export default function RatingStars({ rating }: RatingStarsProps) {
   const safeRating = Math.max(0, Math.min(5, Math.floor(rating)));
 
-  const star = "★".repeat(safeRating);
-  const emptyStar = "☆".repeat(5 - safeRating);
-
   return (
-    <Text style={styles.stars}>
-      {star}
-      {emptyStar}
-    </Text>
+    <View style={styles.container}>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <Ionicons
+          key={index}
+          name={index < safeRating ? "star" : "star-outline"}
+          size={16}
+          color={Colors.accent}
+        />
+      ))}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  stars: {
-    fontSize: 20,
-    color: "#ffbc04",
-    margin: 5,
+  container: {
+    flexDirection: "row",
+    gap: 2,
   },
 });

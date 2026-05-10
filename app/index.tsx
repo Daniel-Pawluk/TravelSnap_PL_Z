@@ -8,17 +8,22 @@ import {
   TextInput,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import EmptyState from "../components/EmptyState";
+import ScreenHeader from "../components/ScreenHeader";
 import TripCard from "../components/TripCard";
+import TripStats from "../components/TripStats";
+import { Colors } from "../constants/Colors";
+
+interface Trip {
+  id: string;
+  title: string;
+  destination: string;
+  date: string;
+  rating: number;
+}
 
 export default function HomeScreen() {
-  interface Trip {
-    id: string;
-    title: string;
-    destination: string;
-    date: string;
-    rating: number;
-  }
-
   function parseRating(value: string): number | null {
     const parsed = Number(value);
 
@@ -77,112 +82,105 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>TravelSnap</Text>
-      <Text style={styles.subtitle}>Twój dziennik podróży</Text>
-      <Text style={styles.author}>Daniel Pawluk</Text>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
+        <ScreenHeader tripCount={trips.length} />
+        <TripStats trips={trips} />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Tytuł podrozy"
-        value={title}
-        onChangeText={setTitle}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Miejsce"
-        value={destination}
-        onChangeText={setDestination}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Data (np. 2024-07)"
-        value={date}
-        onChangeText={setDate}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Ocena (1-5)"
-        value={rating}
-        onChangeText={setRating}
-        keyboardType="numeric"
-      />
-
-      <Pressable style={styles.addBtn} onPress={handleAddTrip}>
-        <Text style={styles.addText}>Dodaj podroz</Text>
-      </Pressable>
-
-      <Text style={styles.counter}>Liczba podróży: {trips.length}</Text>
-
-      <ScrollView>
-        {trips.map((trip) => (
-          <TripCard
-            key={trip.id}
-            title={trip.title}
-            destination={trip.destination}
-            date={trip.date}
-            rating={trip.rating}
-            onDel={() => handleUsun(trip.id)}
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Tytuł podrozy"
+            value={title}
+            onChangeText={setTitle}
+            placeholderTextColor={Colors.textSecondary}
           />
-        ))}
+          <TextInput
+            style={styles.input}
+            placeholder="Miejsce"
+            value={destination}
+            onChangeText={setDestination}
+            placeholderTextColor={Colors.textSecondary}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Data (np. 2024-07)"
+            value={date}
+            onChangeText={setDate}
+            placeholderTextColor={Colors.textSecondary}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Ocena (1-5)"
+            value={rating}
+            onChangeText={setRating}
+            placeholderTextColor={Colors.textSecondary}
+            keyboardType="numeric"
+          />
+
+          <Pressable style={styles.addBtn} onPress={handleAddTrip}>
+            <Text style={styles.addText}>Dodaj podroz</Text>
+          </Pressable>
+        </View>
+
+        {trips.length === 0 ? (
+          <EmptyState />
+        ) : (
+          trips.map((trip) => (
+            <TripCard
+              key={trip.id}
+              title={trip.title}
+              destination={trip.destination}
+              date={trip.date}
+              rating={trip.rating}
+              onDel={() => handleUsun(trip.id)}
+            />
+          ))
+        )}
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  counter: {
-    marginTop: 20,
-    marginBottom: 10,
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#333333",
-  },
-  container: {
-    marginTop: 30,
+  safeArea: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: Colors.background,
+  },
+  screen: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  content: {
     padding: 20,
+    paddingTop: 5,
   },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    color: "#1a1a2e",
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: "#e94560",
-    marginBottom: 24,
-  },
-  author: {
-    fontSize: 16,
-    color: "#888",
-    fontStyle: "italic",
+  form: {
+    backgroundColor: Colors.card,
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 20,
   },
   input: {
     borderWidth: 1,
-    borderColor: "#CED4DA",
+    borderColor: Colors.inputBorder,
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
-    backgroundColor: "#FFF",
+    backgroundColor: Colors.inputBg,
+    color: Colors.textPrimary,
     marginBottom: 8,
-    width: 250,
   },
   addBtn: {
-    backgroundColor: "#61DAFB",
+    backgroundColor: Colors.primary,
     padding: 14,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 4,
-    marginBottom: 16,
   },
   addText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#0A1628",
+    color: Colors.background,
   },
 });
